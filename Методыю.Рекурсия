@@ -36,3 +36,104 @@ namespace ConsoleApp3
     }
 }
 //Второй пункт
+1)
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Security.Cryptography;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace ConsoleApp3
+{
+
+    class Program
+    {
+         static void Add1(int a, int b,int result)
+        {
+            
+            result = result + a + b;
+             
+            Console.WriteLine(result);
+            Add1(a, b, result);
+   
+        }
+        static void Main(string[] args)
+        {
+        int result = 0;
+            int a = Int32.Parse(Console.ReadLine());
+            int b = Int32.Parse(Console.ReadLine());
+            Add1(a, b, result);
+
+        }
+
+    }
+    2)
+    using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Security.Cryptography;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace ConsoleApp3
+{
+
+    class Program
+    {
+         static void Add1(double a, double b, double result)
+        {
+            
+            result = result + a + b;
+             
+            Console.WriteLine(result);
+            Add1(a, b, result);
+           
+           
+        }
+        static void Main(string[] args)
+        {
+            double result = 0;
+            double a = double.Parse(Console.ReadLine());
+            double b = double.Parse(Console.ReadLine());
+            Add1(a, b, result);
+
+        }
+
+    }
+}
+}
+3)
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Security.Cryptography;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace ConsoleApp3
+{
+
+
+    class Program
+    {
+        static void Add1(string a, string b, string result)
+        {
+
+            result = result + a + b;
+
+            Console.WriteLine(result);
+            Add1(a, b, result);
+
+        }
+        static void Main(string[] args)
+        {
+            string result = "";
+            string a = Console.ReadLine();
+            string b = Console.ReadLine();
+            Add1(a, b, result);
+
+        }
+
+    }
+}
