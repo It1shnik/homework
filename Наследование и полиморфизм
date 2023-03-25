@@ -1,1 +1,162 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 
+namespace ConsoleApp3
+
+class Pupil
+{
+    public virtual void Study()
+    {
+        Console.WriteLine("Pupil is studying");
+    }
+
+    public virtual void Read()
+    {
+        Console.WriteLine("Pupil is reading");
+    }
+
+    public virtual void Write()
+    {
+        Console.WriteLine("Pupil is writing");
+    }
+
+    public virtual void Relax()
+    {
+        Console.WriteLine("Pupil is relaxing");
+    }
+}
+
+
+class ExcelentPupil : Pupil
+{
+    public override void Study()
+    {
+        Console.WriteLine("Excelent pupil is studying");
+    }
+
+    public override void Read()
+    {
+        Console.WriteLine("Excelent pupil is reading a lot");
+    }
+
+    public override void Write()
+    {
+        Console.WriteLine("Excelent pupil is writing a lot");
+    }
+
+    public override void Relax()
+    {
+        Console.WriteLine("Excelent pupil rarely relaxes");
+    }
+}
+
+
+class GoodPupil : Pupil
+{
+    public override void Study()
+    {
+        Console.WriteLine("Good pupil is studying");
+    }
+
+    public override void Read()
+    {
+        Console.WriteLine("Good pupil is reading");
+    }
+
+    public override void Write()
+    {
+        Console.WriteLine("Good pupil is writing");
+    }
+
+    public override void Relax()
+    {
+        Console.WriteLine("Good pupil relaxes enough");
+    }
+}
+
+
+class BadPupil : Pupil
+{
+    public override void Study()
+    {
+        Console.WriteLine("Bad pupil is not studying");
+    }
+
+    public override void Read()
+    {
+        Console.WriteLine("Bad pupil is not reading");
+    }
+
+    public override void Write()
+    {
+        Console.WriteLine("Bad pupil is not writing");
+    }
+
+    public override void Relax()
+    {
+        Console.WriteLine("Bad pupil is always relaxing");
+    }
+}
+
+
+class ClassRoom
+{
+    private Pupil[] pupils;
+
+    public ClassRoom(Pupil pupil1, Pupil pupil2, Pupil pupil3, Pupil pupil4)
+    {
+        pupils = new Pupil[] { pupil1, pupil2, pupil3, pupil4 };
+    }
+
+    public void Study()
+    {
+        foreach (Pupil pupil in pupils)
+        {
+            pupil.Study();
+        }
+    }
+
+    public void Read()
+    {
+        foreach (Pupil pupil in pupils)
+        {
+            pupil.Read();
+        }
+    }
+
+    public void Write()
+    {
+        foreach (Pupil pupil in pupils)
+        {
+            pupil.Write();
+        }
+    }
+
+    public void Relax()
+    {
+        foreach (Pupil pupil in pupils)
+        {
+            pupil.Relax();
+        }
+    }
+}
+
+
+class Program
+{
+    static void Main(string[] args)
+    {
+     
+        ClassRoom classRoom = new ClassRoom(new ExcelentPupil(), new GoodPupil(), new BadPupil(), new ExcelentPupil());
+
+        classRoom.Study();
+        classRoom.Read();
+        classRoom.Write();
+        classRoom.Relax();
+
+        Console.ReadLine();
+    }
+}
