@@ -1,0 +1,38 @@
+//Первый пункт
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Security.Cryptography;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace ConsoleApp3
+{
+
+
+    class Program
+    {
+        public static int SumTo(int n)
+        {
+            if (n == 1)
+            {
+                return 1;
+            }
+            else
+            {
+                return n + SumTo(n - 1);
+            }
+        }
+        static void Main(string[] args)
+        {
+            
+            Console.WriteLine(SumTo(20));
+        }
+
+
+
+
+
+    }
+}
+//Второй пункт
