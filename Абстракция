@@ -1,0 +1,63 @@
+
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace ConsoleApp3
+{
+
+    interface IPlayable
+    {
+        void Play();
+        void Pause();
+        void Stop();
+    }
+
+    interface IRecordable
+    {
+        void Record();
+        void Pause();
+        void Stop();
+    }
+
+    class Player : IPlayable, IRecordable
+    {
+        public void Play()
+        {
+            Console.WriteLine("Started to play track...");
+        }
+
+        public void Pause()
+        {
+            Console.WriteLine("Paused.");
+        }
+
+        public void Stop()
+        {
+            Console.WriteLine("Stopped.");
+        }
+
+        public void Record()
+        {
+            Console.WriteLine("Started to record sounds...");
+        }
+    }
+
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            Player player = new Player();
+            player.Record();
+            player.Stop();
+            player.Play();
+            player.Pause();
+            player.Stop();
+        }
+    }
+
+
+    
+}
