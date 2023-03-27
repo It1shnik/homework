@@ -1,0 +1,147 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace ConsoleApp3
+{
+    class DeniedOperationException : Exception
+    {
+        public DeniedOperationException(string message) : base(message)
+        {
+        }
+    }
+
+    interface IIdentity
+    {
+        int Id { get; set; }
+    }
+
+    interface IContact : IIdentity
+    {
+        string Name { get; set; }
+        string PhoneNumber { get; set; }
+        string Email { get; set; }
+    }
+
+    class Contact : IContact
+    {
+        public int Id { get; set; }
+        public string Name { get; set; }
+        public string PhoneNumber { get; set; }
+        public string Email { get; set; }
+    }
+
+    interface IContactProvider
+    {
+        IEnumerable<IContact> Get();
+    }
+
+    class InMemoryContactProvider : IContactProvider
+    {
+        public IEnumerable<IContact> Get()
+        {
+            return new List<IContact>();
+        }
+    }
+
+    interface IMenageable
+    {
+        void Add(IContact contact);
+        void Update(IContact contact);
+        void Remove(int id);
+    }
+
+    abstract class BaseContactStore : IMenageable, IEnumerable<IContact>
+    {
+        protected List<IContact> _contacts = new List<IContact>();
+
+        public void Add(IContact contact)
+        {
+            if (_contacts.Any(c => c.Name == contact.Name))
+            {
+                throw new DeniedOperationException($"Contact with {nameof(contact.Name)} {contact.Name} already exists");
+            }
+
+            _contacts.Add(contact);
+        }
+
+        public void Update(IContact contact)
+        {
+            int index = _contacts.FindIndex(c => c.Id == contact.Id);
+            if (index != -1)
+            {
+                _contacts[index] = contact;
+            }
+        }
+
+        public void Remove(int id)
+        {
+            IContact contactToRemove = _contacts.FirstOrDefault(c => c.Id == id);
+            if (contactToRemove == null)
+            {
+                throw new DeniedOperationException($"Contact with {nameof(id)} {id} does not exist");
+            }
+
+            _contacts.RemoveAll(c => c.Id == id);
+        }
+
+        public IEnumerator<IContact> GetEnumerator()
+        {
+            return _contacts.GetEnumerator();
+        }
+
+        System.Collections.IEnumerator System.Collections.IEnumerable.GetEnumerator()
+        {
+            return GetEnumerator();
+        }
+    }
+
+    class ContactStore : BaseContactStore
+    {
+
+    }
+
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            ContactStore contactStore = new ContactStore();
+
+            bool exit = false;
+
+            do
+            {
+                Console.WriteLine("Choose an option:");
+                Console.WriteLine("1 - Show contacts");
+                Console.WriteLine("2 - Add contact");
+                Console.WriteLine("3 - Remove contact by Id");
+                Console.WriteLine("4 - Exit");
+
+                int option;
+                if (!int.TryParse(Console.ReadLine(), out option))
+                {
+                    Console.WriteLine("Invalid option. Please enter a number.");
+                    continue;
+                }
+
+                try
+                {
+                    switch (option)
+                    {
+                        case 1:
+                            Console.WriteLine("Contacts:");
+                            foreach (IContact contact in contactStore)
+                            {
+                                Console.WriteLine("Name: {0}, Phone: {1}, Email: {2}", contact.Name, contact.PhoneNumber, contact.Email);
+                            }
+                            break;
+                        case 2:
+                            Console.WriteLine("Enter contact name:");
+                            string name = Console.ReadLine();
+                            Console.WriteLine("Enter contact phone number:");
+                            string phone = Console.ReadLine();
+                            Console.WriteLine("Enter contact email:");
+                            string email = Console.ReadLine();
+                            contactStore.Add(new Contact { Name = name, PhoneNumber = phone, Email = email
